@@ -107,7 +107,11 @@ while (true)
             var jaFaturado = movimentacoesSaida.Where(p => p.IdMovimentacaoEntrada == idMovimentacaoEntrada).FirstOrDefault();
             if (jaFaturado == null)
             {
-                var horaSaida = DateTime.ParseExact(Console.ReadLine(), "dd/MM/yyyy HH:mm", null);
+
+                DateTime horaSaida;
+                bool horaSaidaValida = false;
+                Console.WriteLine("Digite a hora de saída (dd/MM/yyyy HH:mm): ");
+                horaSaidaValida = DateTime.TryParseExact(Console.ReadLine(), "dd/MM/yyyy HH:mm", null, System.Globalization.DateTimeStyles.None, out horaSaida);
                 var horaTotalEstacionado = (horaSaida - movimentacoesEntrada[Convert.ToInt32(indiceMovimentacaoEscolhido)].HoraEntrada).TotalMinutes;
                 Console.WriteLine(horaTotalEstacionado);
                 var precoTotal = horaTotalEstacionado * precoMinuto;
